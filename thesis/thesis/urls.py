@@ -14,9 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
+from django.contrib.auth import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("", include("classification.urls")),
+    path("dashboard/", include("dashboard.urls")),
+    path(
+        "login/",
+        views.LoginView.as_view(next_page="/dashboard?origin=login"),
+        name="login",
+    ),
+    path("logout/", views.LogoutView.as_view(next_page="/"), name="logout"),
 ]
