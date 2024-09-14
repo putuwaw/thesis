@@ -11,6 +11,18 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+# Load environment variables
+env = environ.Env(
+    DEBUG=(bool, False), # default for prod
+    # db config for local development
+    DB_NAME=(str, "thesis"),
+    DB_USER=(str, "postgres"),
+    DB_PASSWORD=(str, "postgres"),
+    DB_HOST=(str, "localhost"),
+    DB_PORT=(str, "5432"),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +32,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-pczj2vx6wv7x-&a6-iaviesew-uz=n!7n%db4val1fg10v)t2-"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "classification.apps.ClassificationConfig",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +70,6 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "templates",
             "dashboard/templates",
-            "classification/templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -79,8 +91,12 @@ WSGI_APPLICATION = "thesis.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
 
