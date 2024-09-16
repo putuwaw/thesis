@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 # Load environment variables
 env = environ.Env(
-    DEBUG=(bool, False), # default for prod
+    DEBUG=(bool, False),  # default for prod
     # db config for local development
     DB_NAME=(str, "thesis"),
     DB_USER=(str, "postgres"),
@@ -147,3 +148,5 @@ LOGIN_URL = "/login/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000"]
