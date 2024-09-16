@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+  web:
+    build: ./thesis
+    volumes:
+      - static_volume:/app/staticfiles
+    depends_on:
+      - db
+    expose:
+      - 8000
+    env_file:
+      - ./.env
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/app/staticfiles
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
+
