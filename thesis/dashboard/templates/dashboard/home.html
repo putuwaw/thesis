@@ -26,8 +26,67 @@
     </button>
 </div>
 {% endif %}
-Home
 
+<h1 class="font-bold text-2xl pb-4">
+    Dashboard
+</h1>
+
+
+<main>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-gray-50 shadow-md rounded-lg p-4 h-48 ">
+            <div class="flex flex-col items-center justify-evenly min-h-full">
+                <h2 class="text-center">Total Dataset</h2>
+                <p class="text-center text-5xl font-extrabold">1234</p>
+            </div>
+        </div>
+        <div class="bg-gray-50 shadow-md rounded-lg p-4 h-48 ">
+            <div class="flex flex-col items-center justify-evenly min-h-full">
+                <h2 class="text-center">Total Data Training</h2>
+                <p class="text-center text-5xl font-extrabold">972</p>
+            </div>
+        </div>
+        <div class="bg-gray-50 shadow-md rounded-lg p-4 h-48 ">
+            <div class="flex flex-col items-center justify-evenly min-h-full">
+                <h2 class="text-center">Total Data Test</h2>
+                <p class="text-center text-5xl font-extrabold">123</p>
+            </div>
+        </div>
+        <div class="bg-gray-50 shadow-md rounded-lg p-4 h-48 ">
+            <div class="flex flex-col items-center justify-evenly min-h-full">
+                <h2 class="text-center">Accuracy</h2>
+                <p class="text-center text-5xl font-extrabold">45%</p>
+            </div>
+            <!-- progress -->
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" style="width: 45%">
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 shadow-md rounded-lg p-4 h-48 ">
+            <div class="flex flex-col items-center justify-evenly min-h-full">
+                <h2 class="text-center">Precision</h2>
+                <p class="text-center text-5xl font-extrabold">72%</p>
+            </div>
+            <!-- progress -->
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                <div class="bg-yellow-300 h-2.5 rounded-full dark:bg-yellow-300" style="width: 72%">
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 shadow-md rounded-lg p-4 h-48 ">
+            <div class="flex flex-col items-center justify-evenly min-h-full">
+                <h2 class="text-center">Recall</h2>
+                <p class="text-center text-5xl font-extrabold">89%</p>
+            </div>
+            <!-- progress -->
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                <div class="bg-green-600 h-2.5 rounded-full dark:bg-green-600" style="width: 89%">
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
 
 {% endblock dashboard_content %}
