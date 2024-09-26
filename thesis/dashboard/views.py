@@ -3,6 +3,9 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, Page
 from django.shortcuts import render
 from classification.models import ClassificationReport
+from .forms import CSVUploadForm
+
+import pandas as pd
 
 
 def _get_pagination_range(page_obj: Page):
@@ -27,6 +30,30 @@ def _get_pagination_range(page_obj: Page):
             )
 
 
+def _handle_form_submission(request: WSGIRequest, template_name: str):
+    ctx = {}
+    # file upload form
+    if "submit_file_form" in request.POST:
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            csv_file = request.FILES["file"]
+            df = pd.read_csv(csv_file)
+            print(df)
+            return render(request, template_name, context=ctx)
+        else:
+            ctx = {
+                "is_error": True,
+                "errors": form.errors.as_data(),
+            }
+            return render(request, template_name, context=ctx)
+    # normal form add new data
+    if "submit_data_form" in request.POST:
+        print(request.POST)
+        return render(request, template_name, context=ctx)
+
+    return render(request, template_name, context=ctx)
+
+
 @login_required
 def dashboard_home(request: WSGIRequest):
     # Get the current logged-in user's name
@@ -44,7 +71,23 @@ def dashboard_home(request: WSGIRequest):
 
 @login_required
 def dashboard_data(request: WSGIRequest):
-    return render(request, "dashboard/data.html")
+    if request.method == "POST":
+        return _handle_form_submission(request, "dashboard/data/all.html")
+    return render(request, "dashboard/data/all.html")
+
+
+@login_required
+def dashboard_data_training(request: WSGIRequest):
+    if request.method == "POST":
+        return _handle_form_submission(request, "dashboard/data/training.html")
+    return render(request, "dashboard/data/training.html")
+
+
+@login_required
+def dashboard_data_testing(request: WSGIRequest):
+    if request.method == "POST":
+        return _handle_form_submission(request, "dashboard/data/testing.html")
+    return render(request, "dashboard/data/testing.html")
 
 
 @login_required
