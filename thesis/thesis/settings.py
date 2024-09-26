@@ -71,6 +71,7 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "templates",
             "dashboard/templates",
+            "dashboard/templates/data",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
