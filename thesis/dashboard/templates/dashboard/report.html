@@ -1,1 +1,81 @@
-{% extends "dashboard/_sidebar.html" %} {% block dashboard_content %}<h1 class="font-bold text-2xl pb-4">Report</h1><div class="relative overflow-x-auto sm:rounded-lg"><table class="w-full shadow-sm text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"><thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"><tr><th scope="col" class="w-14 py-3 px-2 text-center">No</th><th scope="col" class="w-3/6 px-4 py-3">Predicted Text</th><th scope="col" class="w-1/6 px-4 py-3">Predicted Class</th><th scope="col" class="w-1/6 px-4 py-3">Expected Class</th><th scope="col" class="w-1/6 px-4 py-3">Created At</th></tr></thead><tbody>{% for data in reports %}<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"><td class="text-center py-2"><p>{{ forloop.counter0|add:show.start }}</p></td><th class="px-4 py-2 overflow-hidden"><p class="h-9 text-left flex items-center justify-start">{{ data.predicted_text|safe|truncatechars:150 }}</p></th><td class="px-4 py-2"><p>{{ data.predicted_class }}</p></td><td class="px-4 py-2"><p>{{ data.expected_class }}</p></td><td class="px-4 py-2"><p>{{ data.created_at }}</p></td></tr>{% endfor %}</tbody></table><nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation"><span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white">{{ show.start }}-{{ show.end }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ show.total_data }}</span> Reports</span><ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">{% if show.previous %}<li><a href="/dashboard/report?page={{ page_obj.number|add:' -1' }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a></li>{% else %}<li><p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">Previous</p></li>{% endif %} {% for item in pagination_list %} {% if item == "..." %}<li><a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ item }}</a></li>{% else %}<li><a href="/dashboard/report/?page={{ item }}" class="{% if page_obj.number == item %} bg-gray-100 {% else %} bg-white {% endif %} flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ item }}</a></li>{% endif %} {% endfor %} {% if show.next %}<li><a href="/dashboard/report?page={{ page_obj.number|add:' 1' }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a></li>{% else %}<li><p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">Next</p></li>{% endif %}</ul></nav></div>{% endblock dashboard_content %}
+{% extends "dashboard/_sidebar.html" %}
+{% block dashboard_content %}
+    <h1 class="font-bold text-2xl pb-4">Report</h1>
+    <div class="relative overflow-x-auto sm:rounded-lg">
+        <table class="w-full shadow-sm text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="w-14 py-3 px-2 text-center">No</th>
+                    <th scope="col" class="w-3/6 px-4 py-3">Predicted Text</th>
+                    <th scope="col" class="w-1/6 px-4 py-3">Predicted Class</th>
+                    <th scope="col" class="w-1/6 px-4 py-3">Expected Class</th>
+                    <th scope="col" class="w-1/6 px-4 py-3">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in reports %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td class="text-center py-2">
+                            <p>{{ forloop.counter0|add:show.start }}</p>
+                        </td>
+                        <th class="px-4 py-2 overflow-hidden">
+                            <p class="h-9 text-left flex items-center justify-start">{{ data.predicted_text|safe|truncatechars:150 }}</p>
+                        </th>
+                        <td class="px-4 py-2">
+                            <p>{{ data.predicted_class }}</p>
+                        </td>
+                        <td class="px-4 py-2">
+                            <p>{{ data.expected_class }}</p>
+                        </td>
+                        <td class="px-4 py-2">
+                            <p>{{ data.created_at }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+             aria-label="Table navigation">
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white">{{ show.start }}-{{ show.end }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ show.total_data }}</span> Reports</span>
+            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                {% if show.previous %}
+                    <li>
+                        <a href="/dashboard/report?page={{ page_obj.number|add:' -1' }}"
+                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                            Previous
+                        </p>
+                    </li>
+                {% endif %}
+                {% for item in pagination_list %}
+                    {% if item == "..." %}
+                        <li>
+                            <a href="#"
+                               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ item }}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="/dashboard/report/?page={{ item }}"
+                               class="{% if page_obj.number == item %} bg-gray-100 {% else %} bg-white {% endif %} flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ item }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if show.next %}
+                    <li>
+                        <a href="/dashboard/report?page={{ page_obj.number|add:' 1' }}"
+                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                            Next
+                        </p>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock dashboard_content %}

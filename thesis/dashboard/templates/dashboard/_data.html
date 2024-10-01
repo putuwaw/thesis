@@ -1,1 +1,264 @@
-{% extends "dashboard/_sidebar.html" %} {% block dashboard_content %}<!-- tabs --><div class="border-b border-gray-200 dark:border-gray-700"><ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"><li class="me-2"><a href="/dashboard/data/" class="inline-flex items-center justify-center p-4 {% if request.path == '/dashboard/data/' %} text-green-600 border-green-600 dark:text-green-500 dark:border-green-500 {% else %} hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 {% endif %} active group border-b-2 rounded-t-lg" aria-current="page"><svg class="w-4 h-4 me-2 {% if request.path == '/dashboard/data/' %} text-green-600 dark:text-green-500 {% else %} text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300 {% endif %}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Zm2 0V2h7a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Zm-1 9a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Zm2-5a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1Zm4 4a1 1 0 1 0-2 0v3a1 1 0 1 0 2 0v-3Z" clip-rule="evenodd"/></svg> All</a></li><li class="me-2"><a href="/dashboard/data/training/" class="inline-flex items-center justify-center p-4 {% if request.path == '/dashboard/data/training/' %} text-green-600 border-green-600 dark:text-green-500 dark:border-green-500 {% else %} hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 {% endif %} active group border-b-2 rounded-t-lg" aria-current="page"><svg class="w-4 h-4 me-2 {% if request.path == '/dashboard/data/training/' %} text-green-600 dark:text-green-500 {% else %} text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300 {% endif %}" aria-hidden="true" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Zm-.293 9.293a1 1 0 0 1 0 1.414L9.414 14l1.293 1.293a1 1 0 0 1-1.414 1.414l-2-2a1 1 0 0 1 0-1.414l2-2a1 1 0 0 1 1.414 0Zm2.586 1.414a1 1 0 0 1 1.414-1.414l2 2a1 1 0 0 1 0 1.414l-2 2a1 1 0 0 1-1.414-1.414L14.586 14l-1.293-1.293Z" clip-rule="evenodd"/></svg> Training</a></li><li class="me-2"><a href="/dashboard/data/testing/" class="inline-flex items-center justify-center p-4 {% if request.path == '/dashboard/data/testing/' %} text-green-600 border-green-600 dark:text-green-500 dark:border-green-500 {% else %} hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 {% endif %} active group border-b-2 rounded-t-lg" aria-current="page"><svg class="w-4 h-4 me-2 {% if request.path == '/dashboard/data/testing/' %} text-green-600 dark:text-green-500 {% else %} text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300 {% endif %}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Z"/><path fill-rule="evenodd" d="M11 7V2h7a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Zm4.707 5.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/></svg> Testing</a></li></ul></div><!-- modal button --><div class="flex mt-4"><button type="button" data-modal-target="add-modal" data-modal-toggle="add-modal" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add New Data</button> <button type="button" data-modal-target="import-modal" data-modal-toggle="import-modal" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Import from CSV</button> <button type="button" data-modal-target="delete-modal" data-modal-toggle="delete-modal" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete All Data</button></div><!-- add modal --><div id="add-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"><div class="relative p-4 w-full max-w-md max-h-full"><!-- Modal content --><div class="relative bg-white rounded-lg shadow dark:bg-gray-700"><!-- Modal header --><div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"><h3 class="text-xl font-semibold text-gray-900 dark:text-white">Add Data</h3><button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="add-modal"><svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg> <span class="sr-only">Close modal</span></button></div><!-- Modal body --><div class="p-4 pt-0 md:pt-0 md:p-5"><form class="space-y-4" method="post">{% csrf_token %}<div><label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Text</label> <input type="text" id="text" name="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="Write the text here..." required></div><div><label for="label" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select label</label> <select id="label" required name="label" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"><option selected="selected" value="">Choose a label</option><option value="Alus Singgih">Alus Singgih</option><option value="Alus Sor">Alus Sor</option><option value="Andap/Kapara">Andap/Kapara</option><option value="Kasar">Kasar</option></select></div><div><label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select category</label> <select id="category" required name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"><option selected="selected" value="">Choose a category</option><option value="training">Training</option><option value="testing">Testing</option></select></div><button type="submit" name="submit_data_form" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add</button></form></div></div></div></div><!-- import modal --><div id="import-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"><div class="relative p-4 w-full max-w-md max-h-full"><!-- Modal content --><div class="relative bg-white rounded-lg shadow dark:bg-gray-700"><!-- Modal header --><div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"><h3 class="text-xl font-semibold text-gray-900 dark:text-white">Upload Data</h3><button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="import-modal"><svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg> <span class="sr-only">Close modal</span></button></div><!-- Modal body --><div class="p-4 pt-0 md:pt-0 md:p-5"><form class="space-y-4" enctype="multipart/form-data" method="post" action="{{ request.path }}">{% csrf_token %}<div class=""><label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Upload file</label> <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" type="file" name="file" required id="id_file"><p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">CSV (max. 5 MB).</p></div><div><label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select category</label> <select id="category" required name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"><option selected="selected" value="">Choose a category</option><option value="training">Training</option><option value="testing">Testing</option></select></div><button type="submit" name="submit_file_form" class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Import</button></form></div></div></div></div><!-- delete modal --><div id="delete-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"><div class="relative p-4 w-full max-w-md max-h-full"><div class="relative bg-white rounded-lg shadow dark:bg-gray-700"><button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-modal"><svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg> <span class="sr-only">Close modal</span></button><div class="p-4 md:p-5 text-center"><svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete all data?</h3><button data-modal-hide="delete-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">Yes, I'm sure</button> <button data-modal-hide="delete-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button></div></div></div></div>{% block dashboard_data_content %} {% endblock dashboard_data_content %} {% endblock dashboard_content %}
+{% extends "dashboard/_sidebar.html" %}
+{% block dashboard_content %}
+    <!-- tabs -->
+    <div class="border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            <li class="me-2">
+                <a href="/dashboard/data/"
+                   class="inline-flex items-center justify-center p-4 {% if request.path == '/dashboard/data/' %} text-green-600 border-green-600 dark:text-green-500 dark:border-green-500 {% else %} hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 {% endif %} active group border-b-2 rounded-t-lg"
+                   aria-current="page">
+                    <svg class="w-4 h-4 me-2 {% if request.path == '/dashboard/data/' %} text-green-600 dark:text-green-500 {% else %} text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300 {% endif %}"
+                         aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="24"
+                         height="24"
+                         fill="currentColor"
+                         viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Zm2 0V2h7a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Zm-1 9a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Zm2-5a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0v-6a1 1 0 0 1 1-1Zm4 4a1 1 0 1 0-2 0v3a1 1 0 1 0 2 0v-3Z" clip-rule="evenodd" />
+                    </svg>
+                All</a>
+            </li>
+            <li class="me-2">
+                <a href="/dashboard/data/training/"
+                   class="inline-flex items-center justify-center p-4 {% if request.path == '/dashboard/data/training/' %} text-green-600 border-green-600 dark:text-green-500 dark:border-green-500 {% else %} hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 {% endif %} active group border-b-2 rounded-t-lg"
+                   aria-current="page">
+                    <svg class="w-4 h-4 me-2 {% if request.path == '/dashboard/data/training/' %} text-green-600 dark:text-green-500 {% else %} text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300 {% endif %}"
+                         aria-hidden="true"
+                         aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="24"
+                         height="24"
+                         fill="currentColor"
+                         viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Zm-.293 9.293a1 1 0 0 1 0 1.414L9.414 14l1.293 1.293a1 1 0 0 1-1.414 1.414l-2-2a1 1 0 0 1 0-1.414l2-2a1 1 0 0 1 1.414 0Zm2.586 1.414a1 1 0 0 1 1.414-1.414l2 2a1 1 0 0 1 0 1.414l-2 2a1 1 0 0 1-1.414-1.414L14.586 14l-1.293-1.293Z" clip-rule="evenodd" />
+                    </svg>
+                Training</a>
+            </li>
+            <li class="me-2">
+                <a href="/dashboard/data/testing/"
+                   class="inline-flex items-center justify-center p-4 {% if request.path == '/dashboard/data/testing/' %} text-green-600 border-green-600 dark:text-green-500 dark:border-green-500 {% else %} hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 {% endif %} active group border-b-2 rounded-t-lg"
+                   aria-current="page">
+                    <svg class="w-4 h-4 me-2 {% if request.path == '/dashboard/data/testing/' %} text-green-600 dark:text-green-500 {% else %} text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300 {% endif %}"
+                         aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="24"
+                         height="24"
+                         fill="currentColor"
+                         viewBox="0 0 24 24">
+                        <path d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Z" />
+                        <path fill-rule="evenodd" d="M11 7V2h7a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Zm4.707 5.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd" />
+                    </svg>
+                Testing</a>
+            </li>
+        </ul>
+    </div>
+    <!-- modal button -->
+    <div class="flex mt-4">
+        <button type="button"
+                data-modal-target="add-modal"
+                data-modal-toggle="add-modal"
+                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            Add New Data
+        </button>
+        <button type="button"
+                data-modal-target="import-modal"
+                data-modal-toggle="import-modal"
+                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            Import from CSV
+        </button>
+        <button type="button"
+                data-modal-target="delete-modal"
+                data-modal-toggle="delete-modal"
+                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+            Delete All Data
+        </button>
+    </div>
+    <!-- add modal -->
+    <div id="add-modal"
+         tabindex="-1"
+         aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Add Data</h3>
+                    <button type="button"
+                            class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="add-modal">
+                        <svg class="w-3 h-3"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 pt-0 md:pt-0 md:p-5">
+                    <form class="space-y-4" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label for="text"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Text</label>
+                            <input type="text"
+                                   id="text"
+                                   name="text"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                   placeholder="Write the text here..."
+                                   required>
+                        </div>
+                        <div>
+                            <label for="label"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Select label
+                            </label>
+                            <select id="label"
+                                    required
+                                    name="label"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                <option selected="selected" value="">Choose a label</option>
+                                <option value="Alus Singgih">Alus Singgih</option>
+                                <option value="Alus Sor">Alus Sor</option>
+                                <option value="Andap/Kapara">Andap/Kapara</option>
+                                <option value="Kasar">Kasar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="category"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Select category
+                            </label>
+                            <select id="category"
+                                    required
+                                    name="category"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                <option selected="selected" value="">Choose a category</option>
+                                <option value="training">Training</option>
+                                <option value="testing">Testing</option>
+                            </select>
+                        </div>
+                        <button type="submit"
+                                name="submit_data_form"
+                                class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Add
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- import modal -->
+    <div id="import-modal"
+         tabindex="-1"
+         aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Upload Data</h3>
+                    <button type="button"
+                            class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="import-modal">
+                        <svg class="w-3 h-3"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 pt-0 md:pt-0 md:p-5">
+                    <form class="space-y-4"
+                          enctype="multipart/form-data"
+                          method="post"
+                          action="{{ request.path }}">
+                        {% csrf_token %}
+                        <div class="">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                   for="file">Upload file</label>
+                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                   aria-describedby="file_input_help"
+                                   type="file"
+                                   name="file"
+                                   required
+                                   id="id_file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                               id="file_input_help">CSV (max. 5 MB).</p>
+                        </div>
+                        <div>
+                            <label for="category"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Select category
+                            </label>
+                            <select id="category"
+                                    required
+                                    name="category"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
+                                <option selected="selected" value="">Choose a category</option>
+                                <option value="training">Training</option>
+                                <option value="testing">Testing</option>
+                            </select>
+                        </div>
+                        <button type="submit"
+                                name="submit_file_form"
+                                class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Import
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- delete modal -->
+    <div id="delete-modal"
+         tabindex="-1"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button"
+                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="delete-modal">
+                    <svg class="w-3 h-3"
+                         aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                         aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete all data?</h3>
+                    <button data-modal-hide="delete-modal"
+                            type="button"
+                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Yes, I'm sure
+                    </button>
+                    <button data-modal-hide="delete-modal"
+                            type="button"
+                            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        No, cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block dashboard_data_content %}
+    {% endblock dashboard_data_content %}
+{% endblock dashboard_content %}
