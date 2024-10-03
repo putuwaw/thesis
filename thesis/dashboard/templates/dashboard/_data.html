@@ -53,25 +53,29 @@
         </ul>
     </div>
     <!-- modal button -->
-    <div class="flex mt-4">
-        <button type="button"
-                data-modal-target="add-modal"
-                data-modal-toggle="add-modal"
-                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            Add New Data
-        </button>
-        <button type="button"
-                data-modal-target="import-modal"
-                data-modal-toggle="import-modal"
-                class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            Import from CSV
-        </button>
-        <button type="button"
-                data-modal-target="delete-modal"
-                data-modal-toggle="delete-modal"
-                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-            Delete All Data
-        </button>
+    <div class="flex mt-4 justify-between">
+        <div>
+            <button type="button"
+                    data-modal-target="add-modal"
+                    data-modal-toggle="add-modal"
+                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                Add New Data
+            </button>
+            <button type="button"
+                    data-modal-target="import-modal"
+                    data-modal-toggle="import-modal"
+                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                Import from CSV
+            </button>
+        </div>
+        <div>
+            <button type="button"
+                    data-modal-target="delete-modal"
+                    data-modal-toggle="delete-modal"
+                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                Delete All Data
+            </button>
+        </div>
     </div>
     <!-- add modal -->
     <div id="add-modal"
@@ -136,9 +140,25 @@
                                     required
                                     name="category"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                <option selected="selected" value="">Choose a category</option>
-                                <option value="training">Training</option>
-                                <option value="testing">Testing</option>
+                                <!-- default -->
+                                {% if request.path == '/dashboard/data/' %}
+                                    <option selected="selected" value="">
+                                        Choose a
+                                        category
+                                    </option>
+                                {% endif %}
+                                <!-- training -->
+                                {% if request.path == '/dashboard/data/training/' %}
+                                    <option selected="selected" value="training">Training</option>
+                                {% else %}
+                                    <option value="training">Training</option>
+                                {% endif %}
+                                <!-- testing -->
+                                {% if request.path == '/dashboard/data/testing/' %}
+                                    <option selected="selected" value="testing">Testing</option>
+                                {% else %}
+                                    <option value="testing">Testing</option>
+                                {% endif %}
                             </select>
                         </div>
                         <button type="submit"
@@ -184,7 +204,10 @@
                         {% csrf_token %}
                         <div class="">
                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                   for="file">Upload file</label>
+                                   for="file">
+                                Upload
+                                file
+                            </label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                    aria-describedby="file_input_help"
                                    type="file"
@@ -203,9 +226,26 @@
                                     required
                                     name="category"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
-                                <option selected="selected" value="">Choose a category</option>
-                                <option value="training">Training</option>
-                                <option value="testing">Testing</option>
+                                <!-- default -->
+                                {% if request.path == '/dashboard/data/' %}
+                                    <option selected="selected" value="">
+                                        Choose a
+                                        category
+                                    </option>
+                                {% endif %}
+                                <!-- training -->
+                                {% if request.path == '/dashboard/data/training/' %}
+                                    <option selected="selected" value="training">Training</option>
+                                {% else %}
+                                    <option value="training">Training</option>
+                                {% endif %}
+                                <!-- testing -->
+                                {% if request.path == '/dashboard/data/testing/' %}
+                                    <option selected="selected" value="testing">Testing</option>
+                                {% else %}
+                                    <option value="testing">Testing</option>
+                                {% endif %}
+                                <option value="default">Same as CSV</option>
                             </select>
                         </div>
                         <button type="submit"
@@ -244,12 +284,20 @@
                          viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete all data?</h3>
-                    <button data-modal-hide="delete-modal"
-                            type="button"
-                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                        Yes, I'm sure
-                    </button>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                        Are you sure you want to delete
+                        all data?
+                    </h3>
+                    <form method="POST"
+                          action="{% url 'delete_all_dataset' %}"
+                          class="inline-block">
+                        {% csrf_token %}
+                        <button data-modal-hide="delete-modal"
+                                type="submit"
+                                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            Yes, I'm sure
+                        </button>
+                    </form>
                     <button data-modal-hide="delete-modal"
                             type="button"
                             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
