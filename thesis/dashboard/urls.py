@@ -11,4 +11,6 @@ urlpatterns = [
     path("data/", views.dashboard_data, name="dashboard-data"),
     path("data/training/", views.dashboard_data_training, name="dashboard-data-training"),
     path("data/testing/", views.dashboard_data_testing, name="dashboard-data-testing"),
+    # temp delete all dataset
+    path("data/delete", views.delete_all_data, name="delete_all_dataset"),
 ]

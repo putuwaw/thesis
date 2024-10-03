@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, Page
-from django.shortcuts import render
-from classification.models import ClassificationReport
+from django.shortcuts import render, redirect
+from classification.models import ClassificationReport, Dataset
+
 from .forms import CSVUploadForm
 
 import pandas as pd
@@ -38,8 +39,20 @@ def _handle_form_submission(request: WSGIRequest, template_name: str):
         if form.is_valid():
             csv_file = request.FILES["file"]
             df = pd.read_csv(csv_file)
-            print(df)
-            return render(request, template_name, context=ctx)
+            df.columns = df.columns.str.lower()
+            category = request.POST.get("category")
+            use_df_category = True if category == "default" else False
+            list_data = [
+                Dataset(
+                    text=row["text"],
+                    source=row["source"],
+                    label=row["label"],
+                    category=row["category"] if use_df_category else category,
+                )
+                for _, row in df.iterrows()
+            ]
+            Dataset.objects.bulk_create(list_data)
+            return redirect(request.META["HTTP_REFERER"])
         else:
             ctx = {
                 "is_error": True,
@@ -48,10 +61,42 @@ def _handle_form_submission(request: WSGIRequest, template_name: str):
             return render(request, template_name, context=ctx)
     # normal form add new data
     if "submit_data_form" in request.POST:
-        print(request.POST)
-        return render(request, template_name, context=ctx)
+        # insert data to db
+        data = Dataset(
+            text=request.POST.get("text"),
+            source=request.POST.get("source"),
+            label=request.POST.get("label"),
+            category=request.POST.get("category"),
+        )
+        data.save()
+        return redirect(request.META["HTTP_REFERER"])
 
     return render(request, template_name, context=ctx)
+
+
+def _get_dataset_context(page_number: int, filter_category: str = None):
+    all_data = Dataset.objects.order_by("-created_at").all()
+    if filter_category:
+        all_data = all_data.filter(category=filter_category)
+    paginator = Paginator(all_data, 10)
+    page_number = page_number
+    page_obj: Page = paginator.page(page_number)
+    pagination_list = _get_pagination_range(page_obj)
+
+    ctx = {
+        "page_obj": page_obj,
+        "all_data": page_obj.object_list,
+        "show": {
+            "start": page_obj.start_index(),
+            "end": page_obj.end_index(),
+            "range": list(range(page_obj.start_index(), page_obj.end_index() + 1)),
+            "total_data": all_data.count(),
+            "previous": page_obj.has_previous(),
+            "next": page_obj.has_next(),
+        },
+        "pagination_list": pagination_list,
+    }
+    return ctx
 
 
 @login_required
@@ -73,21 +118,35 @@ def dashboard_home(request: WSGIRequest):
 def dashboard_data(request: WSGIRequest):
     if request.method == "POST":
         return _handle_form_submission(request, "dashboard/data/all.html")
-    return render(request, "dashboard/data/all.html")
+
+    ctx = _get_dataset_context(request.GET.get("page", 1))
+    return render(request, "dashboard/data/all.html", context=ctx)
 
 
 @login_required
 def dashboard_data_training(request: WSGIRequest):
     if request.method == "POST":
         return _handle_form_submission(request, "dashboard/data/training.html")
-    return render(request, "dashboard/data/training.html")
+
+    ctx = _get_dataset_context(request.GET.get("page", 1), "training")
+    return render(request, "dashboard/data/training.html", context=ctx)
 
 
 @login_required
 def dashboard_data_testing(request: WSGIRequest):
     if request.method == "POST":
         return _handle_form_submission(request, "dashboard/data/testing.html")
-    return render(request, "dashboard/data/testing.html")
+
+    ctx = _get_dataset_context(request.GET.get("page", 1), "testing")
+    return render(request, "dashboard/data/testing.html", context=ctx)
+
+
+@login_required
+def delete_all_data(request: WSGIRequest):
+    if request.method == "POST":
+        Dataset.objects.all().delete()
+        return redirect("dashboard-data")
+    return redirect("dashboard-data")
 
 
 @login_required
