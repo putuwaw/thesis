@@ -17,6 +17,7 @@ import os
 # Load environment variables
 env = environ.Env(
     DEBUG=(bool, False),  # default for prod
+    SECRET_KEY=(str, "CHANGE_THIS_SECRET_KEY"), # override in .env
     # db config for local development
     DB_NAME=(str, "thesis"),
     DB_USER=(str, "postgres"),
