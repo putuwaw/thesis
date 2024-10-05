@@ -43,8 +43,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r thesis/requirements.txt
     - name: Run migrations and tests
-      env:
-        DB_HOST: postgres
       run: |
         cd thesis
         python manage.py migrate
