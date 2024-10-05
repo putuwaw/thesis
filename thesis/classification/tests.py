@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import ClassificationReport
 
 
@@ -16,3 +16,12 @@ class ClassificationReportTestCase(TestCase):
         self.assertEqual(report.predicted_class, "test")
         self.assertEqual(report.expected_class, "test")
         self.assertEqual(str(report), "This is a test [test - test]")
+
+
+class ClassificationViewsTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_index_view(self):
+        response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
