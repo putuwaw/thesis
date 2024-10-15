@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env
+      - ./.env.development
 
   web:
     build: ./thesis
@@ -16,8 +16,10 @@ services:
       - db
     expose:
       - 8000
+    environment:
+      - ENVIRONMENT=development
     env_file:
-      - ./.env
+      - ./.env.development
 
   nginx:
     build: ./nginx
