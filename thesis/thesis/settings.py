@@ -16,6 +16,7 @@ import os
 
 # Load environment variables
 env = environ.Env(
+    ENVIRONMENT=(str, "development"),  # default for local
     DEBUG=(bool, False),  # default for prod
     SECRET_KEY=(str, "CHANGE_THIS_SECRET_KEY"), # override in .env
     # db config for local development
@@ -28,7 +29,7 @@ env = environ.Env(
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(os.path.join(os.path.dirname(BASE_DIR), ".env"))
+environ.Env.read_env(os.path.join(os.path.dirname(BASE_DIR), f".env.{env('ENVIRONMENT')}"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
