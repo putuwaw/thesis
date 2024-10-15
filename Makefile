@@ -9,10 +9,7 @@ tw-minify:
 	@npx tailwindcss -o $(TAILWIND_OUTPUT) --minify
 
 django-dev:
-	@cd thesis && python manage.py runserver
+	@cd thesis && python3 manage.py runserver
 
 html-reformat:
 	@djlint ${PROJECT_DIR} --reformat --quiet
-
-html-minify:
-	@find $(PROJECT_DIR) -name '*.html' -exec sh -c 'html-minifier --collapse-whitespace "$$1" -o "$$1"' _ {} \;
