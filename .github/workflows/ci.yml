@@ -1,4 +1,4 @@
-name: Continuous integration
+name: Continuous Integration
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
         sudo chmod +x /usr/local/bin/docker-compose
 
     - name: Setup environment
-      run: cp .env.example .env
+      run: cp .env.example .env.production
 
     - name: Build and run containers
       run: |
