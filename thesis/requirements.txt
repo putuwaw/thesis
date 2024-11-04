@@ -4,7 +4,7 @@ colorama==0.4.6
 cssbeautifier==1.15.1
 Django==5.1.1
 django-environ==0.11.2
-djlint==1.35.2
+djlint==1.35.4
 EditorConfig==0.12.4
 gunicorn==23.0.0
 html-tag-names==0.1.2
