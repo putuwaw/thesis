@@ -33,11 +33,11 @@ jobs:
     - name: Build and run containers
       run: |
         docker compose -f compose.dev.yml up -d --build
-        docker compose exec web python manage.py migrate --noinput
-        docker compose exec web python manage.py collectstatic --noinput
+        docker compose -f compose.dev.yml exec web python manage.py migrate --noinput
+        docker compose -f compose.dev.yml exec web python manage.py collectstatic --noinput
 
     - name: Run tests
-      run: docker compose exec web python manage.py test
+      run: docker compose -f compose.dev.yml exec web python manage.py test
 
     - name: Stop and remove containers
-      run: docker compose down -v
+      run: docker compose -f compose.dev.yml down -v
