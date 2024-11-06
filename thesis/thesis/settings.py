@@ -18,7 +18,8 @@ import os
 env = environ.Env(
     ENVIRONMENT=(str, "development"),  # default for local
     DEBUG=(bool, False),  # default for prod
-    SECRET_KEY=(str, "CHANGE_THIS_SECRET_KEY"), # override in .env
+    SECRET_KEY=(str, "CHANGE_THIS_SECRET_KEY"),  # override in .env
+    CSRF_TRUSTED_ORIGINS=(list, ["http://localhost:8000", "http://127.0.0.1:8000"]),
     # db config for local development
     DB_NAME=(str, "thesis"),
     DB_USER=(str, "postgres"),
@@ -29,7 +30,9 @@ env = environ.Env(
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(os.path.join(os.path.dirname(BASE_DIR), f".env.{env('ENVIRONMENT')}"))
+environ.Env.read_env(
+    os.path.join(os.path.dirname(BASE_DIR), f".env.{env('ENVIRONMENT')}")
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -151,4 +154,4 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://127.0.0.1:8000"]
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
