@@ -1,0 +1,29 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy using SSH
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        script: |
+          cd /home/putuwaw/thesis
+
+          sudo docker compose --env-file .env.production down
+
+          sudo git pull
+          source .venv/bin/activate
+          python thesis/manage.py collectstatic --no-input
+
+          sudo docker compose --env-file .env.production up -d --build
+          sudo docker compose --env-file .env.production exec web python manage.py migrate  --noinput
+          sudo docker compose --env-file .env.production exec web python manage.py collectstatic  --noinput
