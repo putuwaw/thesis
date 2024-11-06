@@ -6,30 +6,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.env.production
+      - path: ./.env.production
+        required: true
 
   web:
     build: ./thesis
     volumes:
-      - static_volume:/app/staticfiles
+      - ${STATICFILES_PATH}:/app/staticfiles
     depends_on:
       - db
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     environment:
       - ENVIRONMENT=production
     env_file:
-      - ./.env.production
-
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/app/staticfiles
-    ports:
-      - 80:80
-    depends_on:
-      - web
+      - path: ./.env.production
+        required: true
 
 volumes:
   postgres_data:
-  static_volume:
