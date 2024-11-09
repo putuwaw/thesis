@@ -22,6 +22,8 @@ jobs:
           sudo docker compose --env-file .env.production down
 
           sudo git pull
+          sudo git submodule update --init --recursive
+          
           source .venv/bin/activate
           python thesis/manage.py collectstatic --no-input
 
