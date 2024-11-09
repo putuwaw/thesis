@@ -1,3 +1,3 @@
 [submodule "thesis/classification/thesis_ml"]
-	path = thesis/classification/thesis_ml
-	url = https://github.com/putuwaw/thesis-ml.git
+    path = thesis/classification/thesis_ml
+    url = git@github.com:putuwaw/thesis-ml.git
