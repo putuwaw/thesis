@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from .models import ClassificationReport
-from .thesis_ml.notebook import MultinomialNB, TFIDF
+from .thesis_ml.notebook import MultinomialNB, TFIDF, LabelBinarizer, chi_square
 
 import numpy as np
 
@@ -127,4 +127,38 @@ class MultinomialNBTestCase(TestCase):
                     ]
                 ),
             )
+        )
+
+
+class LabelBinarizerTestCase(TestCase):
+    def setUp(self):
+        self.label_binarizer = LabelBinarizer()
+
+    def test_label_binarizer_fit_transform(self):
+        y = [1, 2, 6, 4, 2]
+        self.label_binarizer.fit(y)
+        y_transformed = self.label_binarizer.transform([1, 6])
+        self.assertTrue(
+            np.array_equal(
+                y_transformed,
+                np.array([[1, 0, 0, 0], [0, 0, 0, 1]]),
+            )
+        )
+
+        y = ["yes", "no", "no", "yes"]
+        y_transformed = self.label_binarizer.fit_transform(y)
+        self.assertTrue(
+            np.array_equal(
+                y_transformed,
+                np.array([[1], [0], [0], [1]]),
+            )
+        )
+
+
+class ChiSquareTestCase(TestCase):
+    def test_chi_square(self):
+        X = np.array([[1, 1, 3], [0, 1, 5], [5, 4, 1], [6, 6, 2], [1, 4, 0], [0, 0, 0]])
+        y = np.array([1, 1, 0, 0, 2, 2])
+        self.assertTrue(
+            np.allclose(chi_square(X, y), np.array([15.38461538, 6.5, 8.90909091]))
         )
