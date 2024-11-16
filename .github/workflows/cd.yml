@@ -19,8 +19,6 @@ jobs:
           cd /home/putuwaw/thesis
           sudo su
 
-          sudo docker compose --env-file .env.production down
-
           sudo git pull
           sudo git submodule update --init --recursive
           
@@ -28,6 +26,6 @@ jobs:
           pip install -r thesis/requirements.txt
           python thesis/manage.py collectstatic --no-input
 
-          sudo docker compose --env-file .env.production up -d --build
+          sudo docker compose --env-file .env.production up -d --build web
           sudo docker compose --env-file .env.production exec web python manage.py migrate  --noinput
           sudo docker compose --env-file .env.production exec web python manage.py collectstatic  --noinput
