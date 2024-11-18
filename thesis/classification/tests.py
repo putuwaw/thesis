@@ -1,6 +1,12 @@
 from django.test import TestCase, Client
 from .models import ClassificationReport
-from .thesis_ml.notebook import MultinomialNB, TFIDF, LabelBinarizer, chi_square
+from .thesis_ml.notebook import (
+    MultinomialNB,
+    TFIDF,
+    LabelBinarizer,
+    SMOTE,
+    chi_square,
+)
 
 import numpy as np
 
@@ -162,3 +168,17 @@ class ChiSquareTestCase(TestCase):
         self.assertTrue(
             np.allclose(chi_square(X, y), np.array([15.38461538, 6.5, 8.90909091]))
         )
+
+
+class SMOTETestCase(TestCase):
+    def setUp(self):
+        self.smote = SMOTE(k_neighbors=5)
+
+    def test_smote(self):
+        X = np.random.randint(0, 10, size=(33, 3))
+        y = np.concatenate((np.zeros(3), np.ones(15), np.ones(15) * 2))
+
+        X_resampled, y_resampled = self.smote.fit_resample(X, y, 0, N=100)
+
+        self.assertEqual(X_resampled.shape, (36, 3))
+        self.assertEqual(y_resampled.shape, (36,))
