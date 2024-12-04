@@ -6,6 +6,8 @@ from .thesis_ml.notebook import (
     LabelBinarizer,
     SMOTE,
     chi_square,
+    split_data,
+    accuracy_score,
 )
 
 import numpy as np
@@ -182,3 +184,23 @@ class SMOTETestCase(TestCase):
 
         self.assertEqual(X_resampled.shape, (36, 3))
         self.assertEqual(y_resampled.shape, (36,))
+
+
+class SplitDataTestCase(TestCase):
+    def test_split_data(self):
+        X = np.random.randint(0, 10, size=(100, 3))
+        y = np.array([0, 1, 2] * 100)
+        X_train, X_test, y_train, y_test = split_data(X, y, test_size=0.2)
+
+        self.assertEqual(X_train.shape[0], 80)
+        self.assertEqual(y_train.shape[0], 80)
+        self.assertEqual(X_test.shape[0], 20)
+        self.assertEqual(y_test.shape[0], 20)
+
+
+class AccuracyScoreTestCase(TestCase):
+    def test_accuracy_score(self):
+        y_true = np.array([0, 1, 2, 3, 4])
+        y_pred = np.array([4, 3, 2, 1, 0])
+
+        self.assertEqual(accuracy_score(y_true, y_pred), 0.2)
