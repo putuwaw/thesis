@@ -32,9 +32,16 @@ class TextClassifier:
 
         return joblib.load(path)
 
-    def predict(self, text: str) -> str:
+    def predict(self, text: str) -> tuple[str, dict]:
         prediction = self.pipeline.predict(text)
+        probability = self.pipeline.predict_proba(text)
+
+        probability = probability[0]
+        prob_result = {}
+        for idx, prob in enumerate(probability):
+            prob_result[self.idx_to_label[idx]] = round(float(prob) * 100, 2)
+
         result = self.idx_to_label[prediction]
 
         self.categories_left = [cat for cat in self.label_to_idx if cat != result]
-        return result
+        return result, prob_result

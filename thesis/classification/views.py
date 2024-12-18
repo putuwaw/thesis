@@ -10,9 +10,11 @@ def index(request: WSGIRequest):
     if request.method == "POST":
         clf = TextClassifier()
         text: str = request.POST.get("text")
+        prediction = clf.predict(text)
         ctx = {
             "prediction": True,
-            "label": clf.predict(text),
+            "label": prediction[0],
+            "probability": prediction[1],
             "text": text,
             "categories_left": clf.categories_left,
         }
