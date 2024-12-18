@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator, Page
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from classification.models import ClassificationReport, Dataset
 
@@ -181,3 +182,13 @@ def dashboard_report(request: WSGIRequest):
         "pagination_list": pagination_list,
     }
     return render(request, "dashboard/report.html", context=ctx)
+
+@login_required
+def download_data(request: WSGIRequest):
+    if request.method == "POST":
+        data = Dataset.objects.all()
+        df = pd.DataFrame(list(data.values()))
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="dataset.csv"'
+        df.to_csv(response, index=False)
+        return response
