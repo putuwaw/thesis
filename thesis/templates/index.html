@@ -106,11 +106,28 @@
                                     </svg>
                                 </span>
                             </summary>
-                            <p class="mt-2 text-gray-700">
-                                {% for class_name, prob in probability.items %}
-                                    <li class="text-sm">{{ class_name }}: {{ prob }}%</li>
-                                {% endfor %}
-                            </p>
+                            <div class="relative overflow-x-auto shadow mt-4">
+                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">Class Name</th>
+                                            <th scope="col" class="px-6 py-3">Probability</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for class_name, prob in probability.items %}
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th scope="row"
+                                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{ class_name }}
+                                                </th>
+                                                <td class="px-6 py-4">{{ prob }}%</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-4 w-full shadow">{{ fig|safe }}</div>
                         </details>
                         <div class="ms-auto text-right pt-4 text-xs text-gray-500 dark:text-gray-400">
                             Incorrect classification?

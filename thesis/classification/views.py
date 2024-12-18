@@ -15,6 +15,7 @@ def index(request: WSGIRequest):
             "prediction": True,
             "label": prediction[0],
             "probability": prediction[1],
+            "fig": prediction[2],
             "text": text,
             "categories_left": clf.categories_left,
         }

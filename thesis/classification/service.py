@@ -4,6 +4,7 @@ import sys
 from django.conf import settings
 
 import joblib
+import plotly.graph_objects as go
 
 
 class TextClassifier:
@@ -33,6 +34,9 @@ class TextClassifier:
         return joblib.load(path)
 
     def predict(self, text: str) -> tuple[str, dict]:
+        # TODO: normalize text
+        # TODO: short probability
+
         prediction = self.pipeline.predict(text)
         probability = self.pipeline.predict_proba(text)
 
@@ -41,7 +45,33 @@ class TextClassifier:
         for idx, prob in enumerate(probability):
             prob_result[self.idx_to_label[idx]] = round(float(prob) * 100, 2)
 
+        # table
+        sorted_prob_result = dict(
+            sorted(prob_result.items(), key=lambda item: item[1], reverse=True)
+        )
+        # prediction
         result = self.idx_to_label[prediction]
 
+        sorted_prob_result_asc = dict(
+            sorted(prob_result.items(), key=lambda item: item[1])
+        )
+        fig = go.Figure(
+            go.Bar(
+                x=list(sorted_prob_result_asc.values()),
+                y=list(sorted_prob_result_asc.keys()),
+                orientation="h",
+                marker=dict(color="green"),
+                text=list(sorted_prob_result_asc.values()),
+            )
+        )
+
+        fig.update_layout(
+            xaxis_title=None,
+            yaxis_title=None,
+            xaxis=dict(showticklabels=False),
+            yaxis=dict(showticklabels=True),
+            margin=dict(l=10, r=10, t=10, b=10),
+        )
+
         self.categories_left = [cat for cat in self.label_to_idx if cat != result]
-        return result, prob_result
+        return result, sorted_prob_result, fig.to_html(full_html=False)
