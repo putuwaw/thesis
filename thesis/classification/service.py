@@ -3,6 +3,7 @@ import sys
 
 from django.conf import settings
 
+from linggapy import Stemmer
 import joblib
 import plotly.graph_objects as go
 
@@ -23,6 +24,15 @@ class TextClassifier:
         self.pipeline = self._load_model(
             os.path.join(self.base_ml_path, "model/pipeline.joblib")
         )
+        self.class_info = {
+            "Alus singgih": "Basa alus singgih (ASI), used to show respect to others (referring to another person)",
+            "Alus sor": "Basa alus sor (ASO), used to show humility about oneself (referring to yourself)",
+            "Alus mider": "Basa alus mider (AMI) is a polite language used to respect others or show humility about oneself",
+            "Alus madia": "Basa alus madia (AMA) is a language between Alus Singgih and Alus Sor, serving as a variation of basa alus",
+            "Basa andap": "Basa andap/kapara is everyday language that is neither basa alus nor basa kasar",
+            "Basa kasar": "Basa kasar is harsh language used when angry or cursing",
+        }
+        self.stemmer = Stemmer()
 
     def _append_path(self, new_path) -> str:
         if new_path not in sys.path:
@@ -34,9 +44,7 @@ class TextClassifier:
         return joblib.load(path)
 
     def predict(self, text: str) -> tuple[str, dict]:
-        # TODO: normalize text
-        # TODO: short probability
-
+        text = self.stemmer.stem(text, correct_spelling=False)
         prediction = self.pipeline.predict(text)
         probability = self.pipeline.predict_proba(text)
 
@@ -51,6 +59,9 @@ class TextClassifier:
         )
         # prediction
         result = self.idx_to_label[prediction]
+
+        # tooltip
+        info = self.class_info[result]
 
         sorted_prob_result_asc = dict(
             sorted(prob_result.items(), key=lambda item: item[1])
@@ -74,4 +85,4 @@ class TextClassifier:
         )
 
         self.categories_left = [cat for cat in self.label_to_idx if cat != result]
-        return result, sorted_prob_result, fig.to_html(full_html=False)
+        return result, sorted_prob_result, fig.to_html(full_html=False), info
