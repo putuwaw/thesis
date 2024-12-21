@@ -79,7 +79,16 @@
                         <h1 class="font-bold">Result:</h1>
                         <p class="ms-auto my-2 text-gray-500 dark:text-gray-400">
                             The text <span class="text-green-500">{{ text }}</span> is classified as <span class="text-green-600 dark:text-green-500 font-bold">{{ label }}</span>
+                            <button data-tooltip-target="tooltip-animation"
+                                    type="button"
+                                    class="text-black text-center">&#9432;</button>
                         </p>
+                        <div id="tooltip-animation"
+                             role="tooltip"
+                             class="mx-2 max-w-64 md:max-w-xs absolute z-10 invisible inline-block bg-green-600 px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 rounded-lg shadow-sm opacity-0 tooltip">
+                            {{ info }}
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                         <details class="group">
                             <summary class="list-none cursor-pointer flex items-center text-sm hover:underline">
                                 Prediction Details
@@ -146,7 +155,10 @@
                                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                         <!-- Modal header -->
                                         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                            <h3 class="text-xl font-semibold text-left text-gray-900 dark:text-white">Report Incorrect Classification</h3>
+                                            <h3 class="text-xl font-semibold text-left text-gray-900 dark:text-white">
+                                                Report
+                                                Incorrect Classification
+                                            </h3>
                                             <button type="button"
                                                     class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                                     data-modal-hide="authentication-modal">
