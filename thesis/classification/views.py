@@ -7,6 +7,10 @@ from django.utils import timezone
 
 
 def index(request: WSGIRequest):
+    return render(request, "index.html")
+
+
+def predict(request: WSGIRequest):
     if request.method == "POST":
         clf = TextClassifier()
         text: str = request.POST.get("text")
@@ -20,9 +24,13 @@ def index(request: WSGIRequest):
             "text": text,
             "categories_left": clf.categories_left,
         }
-        return render(request, "index.html", context=ctx)
+        return render(request, "predict.html", context=ctx)
 
-    return render(request, "index.html")
+    return render(request, "predict.html")
+
+
+def about(request: WSGIRequest):
+    return render(request, "about.html")
 
 
 def report(request: WSGIRequest):
@@ -40,7 +48,7 @@ def report(request: WSGIRequest):
             )
             report.save()
             messages.success(request, "Report submitted successfully!")
-            return redirect("index")
+            return redirect("predict")
         except Exception as e:
             messages.error(request, f"Failed to submit report! {e}")
-            return redirect("index")
+            return redirect("predict")
