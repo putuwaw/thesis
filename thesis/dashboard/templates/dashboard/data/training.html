@@ -1,7 +1,7 @@
 {% extends "dashboard/_data.html" %}
 {% block dashboard_data_content %}
     {% if is_error %}
-        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50  "
              role="alert">
             <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]"
                  aria-hidden="true"
@@ -22,8 +22,8 @@
         </div>
     {% endif %}
     <div class="relative overflow-x-auto sm:rounded-lg"></div>
-    <table class="w-full shadow-sm text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full shadow-sm text-sm text-left rtl:text-right text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
                 <th scope="col" class="w-14 py-3 px-2 text-center">No</th>
                 <th scope="col" class="w-3/6 px-4 py-3">Text</th>
@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             {% for data in all_data %}
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr class="bg-white border-b   hover:bg-gray-50 ">
                     <td class="text-center py-0.5">
                         <p>{{ forloop.counter0|add:show.start }}</p>
                     </td>
@@ -56,16 +56,16 @@
     </table>
     <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
          aria-label="Table navigation">
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 dark:text-white">{{ show.start }}-{{ show.end }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ show.total_data }}</span> data</span>
+        <span class="text-sm font-normal text-gray-500  mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-gray-900 ">{{ show.start }}-{{ show.end }}</span> of <span class="font-semibold text-gray-900 ">{{ show.total_data }}</span> data</span>
         <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
             {% if show.previous %}
                 <li>
                     <a href="/dashboard/data/training?page={{ page_obj.number|add:' -1' }}"
-                       class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                       class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700     ">Previous</a>
                 </li>
             {% else %}
                 <li>
-                    <p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                    <p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-s-lg   ">
                         Previous
                     </p>
                 </li>
@@ -74,23 +74,23 @@
                 {% if item == "..." %}
                     <li>
                         <a href="#"
-                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ item }}</a>
+                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700     ">{{ item }}</a>
                     </li>
                 {% else %}
                     <li>
                         <a href="/dashboard/data/training?page={{ item }}"
-                           class="{% if page_obj.number == item %} bg-gray-100 {% else %} bg-white {% endif %} flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ item }}</a>
+                           class="{% if page_obj.number == item %} bg-gray-100 {% else %} bg-white {% endif %} flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700     ">{{ item }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
             {% if show.next %}
                 <li>
                     <a href="/dashboard/data/training?page={{ page_obj.number|add:' 1' }}"
-                       class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                       class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700     ">Next</a>
                 </li>
             {% else %}
                 <li>
-                    <p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                    <p class="flex hover:cursor-text items-center justify-center px-3 h-8 leading-tight text-gray-700 bg-gray-100 border border-gray-300 rounded-e-lg   ">
                         Next
                     </p>
                 </li>
