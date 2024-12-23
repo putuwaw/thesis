@@ -5,7 +5,7 @@ cssbeautifier==1.15.1
 Django==5.1.4
 django-environ==0.11.2
 djlint==1.36.1
-EditorConfig==0.12.4
+EditorConfig==0.17.0
 gunicorn==23.0.0
 html-tag-names==0.1.2
 html-void-elements==0.1.0
