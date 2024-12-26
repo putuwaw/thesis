@@ -9,9 +9,9 @@ services:
       - ./.env.development
 
   web:
-    build: ./thesis
+    build: .
     volumes:
-      - static_volume:/app/staticfiles
+      - static_volume:/app/thesis/staticfiles
     depends_on:
       - db
     expose:
@@ -24,7 +24,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/app/staticfiles
+      - static_volume:/app/thesis/staticfiles
     ports:
       - 8000:80
     depends_on:

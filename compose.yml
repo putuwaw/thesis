@@ -10,7 +10,7 @@ services:
         required: true
 
   web:
-    build: ./thesis
+    build: .
     volumes:
       - ${STATICFILES_PATH}:/app/staticfiles
     depends_on:
