@@ -10,12 +10,16 @@ WORKDIR /app
 # psycopg2 need libpq-dev and gcc
 RUN apt-get update && apt-get install -y libpq-dev gcc
 
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+# install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# caching, splitting file and dependencies
+# copy all files
 COPY . .
 
+# install dependencies using uv
+RUN uv sync --frozen
+
+WORKDIR /app/thesis
+
 # config file by default: ./gunicorn.conf.py
-CMD [ "gunicorn", "thesis.wsgi:application" ]
+CMD [ "uv", "run", "gunicorn", "thesis.wsgi:application" ]
