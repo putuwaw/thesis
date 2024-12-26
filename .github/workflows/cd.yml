@@ -17,15 +17,13 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           cd /home/putuwaw/thesis
-          sudo su
 
-          sudo git pull
-          sudo git submodule update --init --recursive
-          
-          source .venv/bin/activate
-          pip install -r thesis/requirements.txt
-          python thesis/manage.py collectstatic --no-input
+          git pull
+          git submodule update --init --recursive
+
+          uv sync --frozen
+          uv run python thesis/manage.py collectstatic --no-input
 
           sudo docker compose --env-file .env.production up -d --build web
-          sudo docker compose --env-file .env.production exec web python manage.py migrate  --noinput
-          sudo docker compose --env-file .env.production exec web python manage.py collectstatic  --noinput
+          sudo docker compose --env-file .env.production exec uv run web python manage.py migrate  --noinput
+          sudo docker compose --env-file .env.production exec uv run web python manage.py collectstatic  --noinput
