@@ -1,4 +1,4 @@
-FROM python:3.10-slim as build
+FROM python:3.10-slim AS build
 
 # prevent .pyc files, -B
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -20,7 +20,7 @@ COPY . .
 RUN uv sync --frozen
 
 # multi stage
-FROM python:3.10-slim as runtime
+FROM python:3.10-slim AS runtime
 WORKDIR /app
 
 # runtime dependencies, cache
