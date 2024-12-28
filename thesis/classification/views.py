@@ -1,9 +1,12 @@
+import json
 from .models import ClassificationReport
 from .service import TextClassifier
 from django.contrib import messages
 from django.core.handlers.wsgi import WSGIRequest
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request: WSGIRequest):
@@ -52,3 +55,39 @@ def report(request: WSGIRequest):
         except Exception as e:
             messages.error(request, f"Failed to submit report! {e}")
             return redirect("predict")
+
+
+@csrf_exempt
+def api_predict(request: WSGIRequest):
+    if request.method == "POST":
+        try:
+            clf = TextClassifier()
+            body = json.loads(request.body)
+            text = body.get("text")
+            if (not text) or (not isinstance(text, str)):
+                return JsonResponse(
+                    {
+                        "status": False,
+                        "message": "failed predict text",
+                        "error": "text field is required and must be of type string",
+                    },
+                    status=400,
+                )
+
+            prediction = clf.predict(text)
+            response = {
+                "label": prediction[0],
+                "probability": prediction[1],
+            }
+            return JsonResponse(
+                {"status": True, "message": "success predict text", "data": response}
+            )
+        except Exception as e:
+            return JsonResponse(
+                {
+                    "status": False,
+                    "message": "failed predict text",
+                    "error": str(e),
+                },
+                status=500,
+            )
