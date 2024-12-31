@@ -27,3 +27,5 @@ jobs:
           sudo docker compose --env-file .env.production up -d --build web
           sudo docker compose --env-file .env.production exec web uv run python manage.py migrate  --noinput
           sudo docker compose --env-file .env.production exec web uv run python manage.py collectstatic  --noinput
+
+          sudo docker image prune -f
