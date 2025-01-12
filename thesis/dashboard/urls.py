@@ -9,7 +9,9 @@ urlpatterns = [
     path("report/", views.dashboard_report, name="dashboard-report"),
     # data
     path("data/", views.dashboard_data, name="dashboard-data"),
-    path("data/training/", views.dashboard_data_training, name="dashboard-data-training"),
+    path(
+        "data/training/", views.dashboard_data_training, name="dashboard-data-training"
+    ),
     path("data/testing/", views.dashboard_data_testing, name="dashboard-data-testing"),
     path("data/download", views.download_data, name="download-data"),
     # temp delete all dataset

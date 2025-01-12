@@ -5,21 +5,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ClassificationReport',
+            name="ClassificationReport",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('predicted_text', models.TextField()),
-                ('predicted_class', models.CharField(max_length=30)),
-                ('expected_class', models.CharField(max_length=30)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("predicted_text", models.TextField()),
+                ("predicted_class", models.CharField(max_length=30)),
+                ("expected_class", models.CharField(max_length=30)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
             ],
         ),
     ]

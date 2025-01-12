@@ -183,6 +183,7 @@ def dashboard_report(request: WSGIRequest):
     }
     return render(request, "dashboard/report.html", context=ctx)
 
+
 @login_required
 def download_data(request: WSGIRequest):
     if request.method == "POST":
