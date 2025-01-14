@@ -179,11 +179,12 @@ class SMOTETestCase(TestCase):
     def test_smote(self):
         X = np.random.randint(0, 10, size=(33, 3))
         y = np.concatenate((np.zeros(3), np.ones(15), np.ones(15) * 2))
+        n_majority = len(np.where(y == 2)[0])
 
-        X_resampled, y_resampled = self.smote.fit_resample(X, y, 0, N=100)
+        X_resampled, y_resampled = self.smote.fit_resample(X, y, 0, n_majority, N=100)
 
-        self.assertEqual(X_resampled.shape, (36, 3))
-        self.assertEqual(y_resampled.shape, (36,))
+        self.assertEqual(X_resampled.shape, (45, 3))
+        self.assertEqual(y_resampled.shape, (45,))
 
 
 class SplitDataTestCase(TestCase):
