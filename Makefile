@@ -9,7 +9,7 @@ tw-minify:
 	@npx @tailwindcss/cli -o $(TAILWIND_OUTPUT) --minify
 
 django-dev:
-	@cd thesis && python3 manage.py runserver
+	@cd thesis && uv run python manage.py runserver
 
 html-reformat:
 	@djlint ${PROJECT_DIR} --reformat --quiet
