@@ -3,8 +3,7 @@
     {% if is_error %}
         <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50  "
              role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]"
-                 aria-hidden="true"
+            <svg class="shrink-0 inline w-4 h-4 me-3 mt-[2px]"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="currentColor"
                  viewBox="0 0 20 20">
@@ -22,7 +21,7 @@
         </div>
     {% endif %}
     <div class="relative overflow-x-auto sm:rounded-lg"></div>
-    <table class="w-full shadow-sm text-sm text-left rtl:text-right text-gray-500 ">
+    <table class="w-full shadow-xs text-sm text-left rtl:text-right text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
                 <th scope="col" class="w-14 py-3 px-2 text-center">No</th>
@@ -34,7 +33,7 @@
         </thead>
         <tbody>
             {% for data in all_data %}
-                <tr class="bg-white border-b   hover:bg-gray-50 ">
+                <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 ">
                     <td class="text-center py-0.5">
                         <p>{{ forloop.counter0|add:show.start }}</p>
                     </td>

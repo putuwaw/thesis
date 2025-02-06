@@ -2,7 +2,7 @@
 {% block dashboard_content %}
     <h1 class="font-bold text-2xl pb-4">Report</h1>
     <div class="relative overflow-x-auto sm:rounded-lg">
-        <table class="w-full shadow-sm text-sm text-left rtl:text-right text-gray-500 ">
+        <table class="w-full shadow-xs text-sm text-left rtl:text-right text-gray-500 ">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
                 <tr>
                     <th scope="col" class="w-14 py-3 px-2 text-center">No</th>
@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 {% for data in reports %}
-                    <tr class="bg-white border-b   hover:bg-gray-50 ">
+                    <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 ">
                         <td class="text-center py-2">
                             <p>{{ forloop.counter0|add:show.start }}</p>
                         </td>
