@@ -6,7 +6,7 @@ click==8.1.8
     # via djlint
 colorama==0.4.6
     # via djlint
-cssbeautifier==1.15.1
+cssbeautifier==1.15.2
     # via djlint
 django==5.1.5
     # via thesis (pyproject.toml)
