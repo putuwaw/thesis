@@ -22,7 +22,7 @@ gunicorn==23.0.0
     # via thesis (pyproject.toml)
 joblib==1.4.2
     # via thesis (pyproject.toml)
-jsbeautifier==1.15.1
+jsbeautifier==1.15.2
     # via
     #   cssbeautifier
     #   djlint
