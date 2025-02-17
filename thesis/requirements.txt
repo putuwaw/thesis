@@ -30,7 +30,7 @@ json5==0.10.0
     # via djlint
 linggapy==0.3.0
     # via thesis (pyproject.toml)
-numpy==2.2.2
+numpy==2.2.3
     # via pandas
 packaging==24.2
     # via
