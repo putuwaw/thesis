@@ -30,6 +30,8 @@ json5==0.10.0
     # via djlint
 linggapy==0.3.0
     # via thesis (pyproject.toml)
+narwhals==1.31.0
+    # via plotly
 numpy==2.2.2
     # via pandas
 packaging==24.2
@@ -61,8 +63,6 @@ six==1.17.0
     #   python-dateutil
 sqlparse==0.5.3
     # via django
-tenacity==9.0.0
-    # via plotly
 tomli==2.2.1
     # via djlint
 tqdm==4.67.1
