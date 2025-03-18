@@ -32,7 +32,7 @@ linggapy==0.3.0
     # via thesis (pyproject.toml)
 narwhals==1.31.0
     # via plotly
-numpy==2.2.2
+numpy==2.2.4
     # via pandas
 packaging==24.2
     # via
