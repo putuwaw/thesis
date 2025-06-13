@@ -13,3 +13,6 @@ django-dev:
 
 html-reformat:
 	@djlint ${PROJECT_DIR} --reformat --quiet
+
+uv-compile:
+	@uv pip compile pyproject.toml -o thesis/requirements.txt
