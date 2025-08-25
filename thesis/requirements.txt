@@ -75,9 +75,9 @@ linggapy==0.3.0 \
     --hash=sha256:1abea3fca4c996efefd6b15c7f58cc1523ced2a1b159e0063384945945fec4ae \
     --hash=sha256:ccd3b08ea52ef0e212ecc660f8843f4c2d3e77f4134733bd9cff07a80ca1da6c
     # via thesis
-narwhals==1.38.2 \
-    --hash=sha256:7c5fbc9f2b8e1d5d95f49dcef9c2d94bf17810de68c87ff195dc7d22f7b3eeb5 \
-    --hash=sha256:a33a182e32f18d794a04e7828a5c401fb26ce9083f609993e7e5064aace641c7
+narwhals==2.2.0 \
+    --hash=sha256:2b5e3d61a486fa4328c286b0c8018b3e781a964947ff725d66ba12f6d5ca3d2a \
+    --hash=sha256:f6a34f2699acabe2c17339c104f0bec28b9f7a55fbc7f8d485d49bea72d12b8a
     # via plotly
 numpy==2.2.5 \
     --hash=sha256:0255732338c4fdd00996c0421884ea8a3651eea555c3a56b84892b66f696eb70 \
